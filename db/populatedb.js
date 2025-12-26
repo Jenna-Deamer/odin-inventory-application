@@ -4,6 +4,7 @@ require("dotenv").config();
 const SQL = `
 CREATE TABLE games (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  cover_src TEXT NOT NULL,
   title VARCHAR(255) NOT NULL
 );
 
@@ -29,14 +30,27 @@ CREATE TABLE game_developers (
   developer_id INTEGER NOT NULL REFERENCES developers(id) ON DELETE CASCADE,
   PRIMARY KEY (game_id, developer_id)
 );
-
-INSERT INTO games (title)
+INSERT INTO games (title, cover_src)
 VALUES 
-('FFXIV'),
-('World of Warcraft'),
-('Hollow Knight'),
-('Minecraft'),
-('Baldur''s Gate 3');
+(
+  'FFXIV',
+  'https://cdn11.bigcommerce.com/s-6rs11v9w2d/images/stencil/270x360/products/3100/16721/FFXIV_DT_Agnostic_Packshot_Standard_Edition_1000x1436_EN_v1__39320.1711384448.jpg'
+),
+(
+  'World of Warcraft',
+  'https://i.ebayimg.com/00/s/MTYwMFgxMDY2/z/iVAAAOSwP0JdcVlR/$_57.JPG?set_id=8800005007'
+),
+(
+  'Hollow Knight',
+  'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Hollow_Knight_first_cover_art.webp/274px-Hollow_Knight_first_cover_art.webp.png'
+),
+(
+  'Minecraft', 'https://i.pinimg.com/736x/00/a8/e4/00a8e4a3edf9937c186dbecd009fd48d.jpg'
+),
+(
+  'Baldur''s Gate 3',
+  'https://upload.wikimedia.org/wikipedia/en/1/12/Baldur%27s_Gate_3_cover_art.jpg'
+);
 
 INSERT INTO genres (title)
 VALUES 

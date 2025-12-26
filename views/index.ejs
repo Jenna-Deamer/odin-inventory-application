@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <%= title %>
@@ -10,20 +11,32 @@
 </head>
 
 <body>
-    <h1>Games</h1><button>Add Game</button>
+    <div class="header">
+        <h1>Games</h1><button>Add Game</button>
+    </div>
 
-    <div class="games-container">
+
+    <main>
         <% games.forEach((game, index)=> { %>
             <article class="game-card">
-                <h2>
-                    <%= game.title %>
-                </h2>
-                <p>Genres:</p>
-                <p>Developers:</p>
+                <div class="game-cover">
+                    <img src="<%= game.cover_src ? game.cover_src : 'https://placehold.co/150x200' %>"
+                        alt="<%= game.title %> Cover" />
+                </div>
+                <div class="game-footer">
+                    <p class="game-title">
+                        <strong>Title: </strong>
+                        <%= game.title %>
+                    </p>
+                    <p class="game-genres"><strong>Genres: </strong></p>
+                    <p class="game-devs"><strong>Developers: </strong></p>
+                </div>
+
             </article>
             <% }) %>
 
-    </div>
+    </main>
+
 </body>
 
 </html>
