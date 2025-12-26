@@ -11,9 +11,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 
-// const messageRouter = require("./routes/messageRouter");
+const gameRouter = require("./routes/gameRouter");
 
-// app.use("/", messageRouter);
+app.use("/", gameRouter);
 
 app.listen(PORT, () => {
     console.log(`Express app listening on ${PORT}`);
