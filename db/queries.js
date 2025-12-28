@@ -11,10 +11,16 @@ JOIN developers ON game_developers.developer_id = developers.id
 JOIN game_genres ON games.id = game_genres.game_id
 JOIN genres ON game_genres.genre_id = genres.id
 GROUP BY games.id;`);
-    console.log(rows)
     return rows;
 };
 
+async function getAllGenres() {
+    const { rows } = await pool.query(`SELECT title AS genre FROM genres;`)
+    console.log('Fetching genres')
+    console.log(rows)
+    return rows;
+}
 module.exports = {
-    getAllGames
+    getAllGames,
+    getAllGenres
 }

@@ -1,10 +1,12 @@
 const db = require('../db/queries');
 
-async function getGames(req, res) {
+async function getHomePage(req, res) {
     const games = await db.getAllGames();
+    const genres = await db.getAllGenres();
     res.render('index', {
         title: 'Home',
-        games
+        games,
+        genres
     })
 }
 
@@ -29,11 +31,16 @@ async function deleteGame(req, res) {
 
 }
 
+
+async function showSelectedGenre(req, res) {
+
+}
 module.exports = {
-    getGames,
+    getHomePage,
     showNewGameForm,
     showUpdateGameForm,
     postGame,
     updateGame,
-    deleteGame
+    deleteGame,
+    showSelectedGenre
 }
