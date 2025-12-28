@@ -48,11 +48,10 @@
             <h2>Genres</h2>
             <div id="genre-container">
                 <% genres.forEach((genre, index)=>{ %>
-                    <button class="genre-card">
-                        <h3>
-                            <%= genre.genre %>
-                        </h3>
-                    </button>
+                    <a href="/genres/<%= genre.genre %>" class="genre-card">
+                        <%= genre.genre %>
+
+                    </a>
                     <% }) %>
             </div>
         </section>

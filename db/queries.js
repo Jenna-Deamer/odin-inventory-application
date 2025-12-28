@@ -20,7 +20,24 @@ async function getAllGenres() {
     console.log(rows)
     return rows;
 }
+
+async function getGamesByGenre(selectedGenre) {
+    const { rows } = await pool.query(`
+        SELECT 
+            games.id, 
+            games.title,
+            string_agg(DISTINCT genres.title, ', ') AS genres
+        FROM games
+        JOIN game_genres ON games.id = game_genres.game_id 
+        JOIN genres ON game_genres.genre_id = genres.id
+        WHERE genres.title ILIKE $1
+        GROUP BY games.id;
+    `, [selectedGenre]);
+
+    return rows;
+}
 module.exports = {
     getAllGames,
-    getAllGenres
+    getAllGenres,
+    getGamesByGenre
 }

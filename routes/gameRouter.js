@@ -3,6 +3,7 @@ const gameController = require('../controllers/gameController');
 const gameRouter = Router();
 
 gameRouter.get('/', gameController.getHomePage);
+gameRouter.get('/genres/:genreName', gameController.showGamesInSelectedGEnre);
 gameRouter.get('/new', gameController.showNewGameForm);
 gameRouter.post('/new', gameController.postGame);
 

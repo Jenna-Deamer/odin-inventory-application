@@ -32,8 +32,14 @@ async function deleteGame(req, res) {
 }
 
 
-async function showSelectedGenre(req, res) {
+async function showGamesInSelectedGEnre(req, res) {
+    const selectedGenre = req.params.genreName;
+    const games = await db.getGamesByGenre(selectedGenre);
 
+    res.render('genre', {
+        title: selectedGenre,
+        games
+    })
 }
 module.exports = {
     getHomePage,
@@ -42,5 +48,5 @@ module.exports = {
     postGame,
     updateGame,
     deleteGame,
-    showSelectedGenre
+    showGamesInSelectedGEnre
 }
