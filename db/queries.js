@@ -15,12 +15,19 @@ GROUP BY games.id;`);
 };
 
 async function getAllGenres() {
-    const { rows } = await pool.query(`SELECT title AS genre FROM genres;`)
-    console.log('Fetching genres')
-    console.log(rows)
+    const { rows } = await pool.query(`SELECT id, title AS genre FROM genres;`)
     return rows;
 }
-
+async function getAllDevs() {
+    const { rows } = await pool.query(`
+        SELECT 
+            id, 
+            concat(first_name, ' ', last_name) AS name 
+        FROM developers 
+        ORDER BY first_name ASC;
+    `);
+    return rows;
+}
 async function getGamesByGenre(selectedGenre) {
     const { rows } = await pool.query(`
         SELECT 
@@ -39,5 +46,6 @@ async function getGamesByGenre(selectedGenre) {
 module.exports = {
     getAllGames,
     getAllGenres,
-    getGamesByGenre
+    getGamesByGenre,
+    getAllDevs
 }

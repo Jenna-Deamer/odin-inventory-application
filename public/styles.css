@@ -57,6 +57,25 @@ h6 {
     padding-top: 2em;
 }
 
+#header a {
+    width: 120px;
+    padding: .5em .2em;
+    text-decoration: none;
+    background-color: #0b4d6b;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    transition: .3s ease-in-out;
+}
+
+#header a:hover {
+    background-color: #13719c;
+}
+
 main {
     padding: 2em 4em;
     max-width: 2000px;

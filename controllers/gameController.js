@@ -11,7 +11,12 @@ async function getHomePage(req, res) {
 }
 
 async function showNewGameForm(req, res) {
-
+    const genres = await db.getAllGenres();
+    const devs = await db.getAllDevs();
+    res.render('new', {
+        genres,
+        devs
+    });
 }
 
 async function postGame(req, res) {

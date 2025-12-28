@@ -1,0 +1,8 @@
+.new-input-container {
+    margin-top: 1em;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
