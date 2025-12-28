@@ -43,9 +43,17 @@ async function getGamesByGenre(selectedGenre) {
 
     return rows;
 }
+async function insertGame(title, img) {
+    await pool.query(
+        "INSERT INTO games (title, cover_src) VALUES ($1, $2)",
+        [title, img]
+    );
+}
+
 module.exports = {
     getAllGames,
     getAllGenres,
     getGamesByGenre,
-    getAllDevs
+    getAllDevs,
+    insertGame
 }

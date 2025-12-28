@@ -23,43 +23,39 @@
                 </fieldset>
                 <fieldset class="genre-fieldset">
                     <legend>Game Genres</legend>
-
                     <p>Select from existing categories:</p>
                     <div class="checkbox-group">
                         <% genres.forEach((genre)=> { %>
                             <label>
-                                <input type="checkbox" name="genreIds" value="<%= genre.id %>">
+                                <input type="checkbox" name="genres" value="<%= genre.id %>">
                                 <%= genre.genre %>
                             </label>
                             <% }) %>
                     </div>
 
                     <div class="new-input-container">
-                        <label for="new-genre">Add a new genre (optional):</label>
-                        <input type="text" name="newGenreName" id="new-genre" placeholder="e.g. Roguelike">
+                        <label for="new_genre">Add a new genre (optional):</label>
+                        <input type="text" name="new_genre" id="new_genre" placeholder="e.g. Roguelike">
                     </div>
                 </fieldset>
 
                 <fieldset class="devs-fieldset">
                     <legend>Developers</legend>
-
                     <p>Select existing developers:</p>
                     <div class="checkbox-group">
                         <% devs.forEach((dev)=> { %>
                             <label>
-                                <input type="checkbox" name="devIds" value="<%= dev.id %>">
+                                <input type="checkbox" name="devs" value="<%= dev.id %>">
                                 <%= dev.name %>
                             </label>
                             <% }) %>
                     </div>
 
                     <div class="new-input-container">
-
-
-                        <label id="new-dev-label" for="new-dev-first">Add a new developer (optional):</label>
+                        <label for="new_dev_first">Add a new developer (optional):</label>
                         <div>
-                            <input type="text" name="newDevFirst" id="new-dev-first" placeholder="First Name">
-                            <input type="text" name="newDevLast" id="new-dev-last" placeholder="Last Name">
+                            <input type="text" name="new_dev_first" id="new_dev_first" placeholder="First Name">
+                            <input type="text" name="new_dev_last" id="new_dev_last" placeholder="Last Name">
                         </div>
                     </div>
                 </fieldset>

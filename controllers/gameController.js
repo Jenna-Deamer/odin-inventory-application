@@ -20,7 +20,15 @@ async function showNewGameForm(req, res) {
 }
 
 async function postGame(req, res) {
+    console.log("--- Form Submission Captured ---");
+    console.log(req.body);
+    console.log("-------------------------------");
+    const { game_title, img_src, genres, new_genre, devs, new_dev_first, new_dev_last } = req.body
+    // Insert game
+    await db.insertGame(game_title, img_src);
+    // Handle new devs & genres
 
+    // Link bridge tables
 }
 
 async function showUpdateGameForm(req, res) {
