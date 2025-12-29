@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title>
         <%= title %>
     </title>
@@ -18,7 +19,7 @@
             <form action="/delete-genre" method="GET"
                 onsubmit="return confirm(`Are you sure you want to delete the genre: <%= title %>?`)">
                 <input type="hidden" name="genreTitle" value="<%= title %>">
-                <button type="submit">Delete <%= title %> Genre</button>
+                <button type="submit" class="btn btn-danger">Delete <%= title %> Genre</button>
             </form>
             <ul id="genre-game-list">
                 <% games.forEach((game, index)=> { %>
@@ -27,7 +28,7 @@
                     </li>
                     <% }) %>
             </ul>
-            <a href="/">Go Back</a>
+            <a href="/" class="btn btn-secondary">Go Back</a>
     </main>
 </body>
 

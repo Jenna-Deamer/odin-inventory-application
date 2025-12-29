@@ -12,7 +12,7 @@
 
 <body>
     <div id="header">
-        <h1>Game Inventory Application</h1><a href="/new">Add Game</a>
+        <h1>Game Inventory Application</h1><a href="/new" class="btn btn-primary">Add Game</a>
     </div>
 
 
@@ -38,12 +38,19 @@
                                 <%= game.devs %>
                             </p>
                             <%- include("partials/errors.ejs") %>
+                                <div class="game-buttons">
+                                    <form action="/delete-game" method="GET" class="delete-game-form"
+                                        onsubmit="return confirm(`Are you sure you want to delete <%= game.title %>?`)">
+                                        <input type="hidden" name="game_title" value="<%= game.title %>">
+                                        <button type="submit" class="btn btn-danger">Delete Game</button>
+                                    </form>
 
-                                <form action="/delete-game" method="GET" class="delete-game-form"
-                                    onsubmit="return confirm(`Are you sure you want to delete <%= game.title %>?`)">
-                                    <input type="hidden" name="game_title" value="<%= game.title %>">
-                                    <button type="submit">Delete Game</button>
-                                </form>
+                                    <a href="/update/<%= game.title %>" class="btn btn-secondary">Update</a>
+                                </div>
+
+
+
+
                         </div>
 
                     </article>

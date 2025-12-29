@@ -48,6 +48,47 @@ h6 {
     text-wrap: balance;
 }
 
+.btn {
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .3s ease-in-out;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #094277;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #1667b3;
+
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
 #header {
     display: flex;
     flex-direction: column;
@@ -55,25 +96,6 @@ h6 {
     align-items: center;
     gap: 1em;
     padding-top: 2em;
-}
-
-#header a {
-    width: 120px;
-    padding: .5em .2em;
-    text-decoration: none;
-    background-color: #0b4d6b;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    transition: .3s ease-in-out;
-}
-
-#header a:hover {
-    background-color: #13719c;
 }
 
 main {
@@ -141,26 +163,14 @@ section {
 
 }
 
-.delete-game-form {
-    margin: 1em 0;
-}
-
-.delete-game-form button {
-    background-color: rgb(143, 20, 20);
-    color: #fff;
-    border: none;
-    font-weight: 700;
-    padding: .5em;
-    border-radius: 8px;
-    transition: .5s ease-in-out;
-    cursor: pointer;
-}
-
-.delete-game-form button:hover {
-    background-color: rgb(219, 22, 22);
-
-}
-
 #genre-section {
     margin-top: 2em;
+}
+
+
+.game-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 1em;
 }
