@@ -14,15 +14,20 @@
         <h1>
             Games in <%= title %> Genre
         </h1>
-
-        <ul id="genre-game-list">
-            <% games.forEach((game, index)=> { %>
-                <li>
-                    <%= game.title %>
-                </li>
-                <% }) %>
-        </ul>
-        <a href="/">Go Back</a>
+        <%- include("partials/errors.ejs") %>
+            <form action="/delete-genre" method="GET"
+                onsubmit="return confirm(`Are you sure you want to delete the genre: <%= title %>?`)">
+                <input type="hidden" name="genreTitle" value="<%= title %>">
+                <button type="submit">Delete <%= title %> Genre</button>
+            </form>
+            <ul id="genre-game-list">
+                <% games.forEach((game, index)=> { %>
+                    <li>
+                        <%= game.title %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <a href="/">Go Back</a>
     </main>
 </body>
 

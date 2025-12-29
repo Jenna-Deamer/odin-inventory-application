@@ -6,5 +6,6 @@ gameRouter.get('/', gameController.getHomePage);
 gameRouter.get('/genres/:genreName', gameController.showGamesInSelectedGEnre);
 gameRouter.get('/new', gameController.showNewGameForm);
 gameRouter.post('/new', gameController.postGame);
+gameRouter.get('/delete-genre', gameController.deleteGenre)
 
 module.exports = gameRouter;

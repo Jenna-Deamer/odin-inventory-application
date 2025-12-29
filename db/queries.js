@@ -97,6 +97,26 @@ async function linkGameDeveloper(gameId, devId) {
     );
 }
 
+async function checkGamesWithGenre(genre_title) {
+    const { rows } = await pool.query(`
+      SELECT g.game_id 
+        FROM game_genres g
+        JOIN genres ON g.genre_id = genres.id
+        WHERE genres.title = $1
+        AND g.game_id IN (
+            SELECT game_id 
+            FROM game_genres 
+            GROUP BY game_id 
+            HAVING COUNT(genre_id) = 1
+        )
+    `, [genre_title]);
+
+    return rows;
+}
+
+async function deleteGenre(genre_title) {
+    await pool.query(`DELETE FROM genres WHERE title = $1`, [genre_title]);
+}
 module.exports = {
     getAllGames,
     getAllGenres,
@@ -106,5 +126,7 @@ module.exports = {
     insertDeveloper,
     insertGenre,
     linkGameGenre,
-    linkGameDeveloper
+    linkGameDeveloper,
+    checkGamesWithGenre,
+    deleteGenre
 }
