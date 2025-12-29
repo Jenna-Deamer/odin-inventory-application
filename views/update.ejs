@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/form.css">
+
+
+    <title>Update <%= game.title %>
+    </title>
+</head>
+
+<body>
+    <h1>Update <%= game.title %>
+    </h1>
+    <section>
+        <%- include("partials/errors.ejs") %>
+            <form method="POST" action="/update">
+                <input type="hidden" name="id" value="<%= game.id %>">
+
+                <fieldset>
+                    <legend>Game Info:</legend>
+                    <label for="game_title">Game Title:</label>
+                    <input type="text" id="game_title" name="game_title" required value="<%= game.title %>"
+                        placeholder="enter game title">
+                    <label for="img_src">Image Src:</label>
+                    <input type="text" id="img_src" name="img_src" required placeholder="enter image url"
+                        value="<%= game.cover_src %>">
+                </fieldset>
+                <fieldset class="genre-fieldset">
+                    <legend>Game Genres</legend>
+                    <p>Select from existing categories:</p>
+                    <div class="checkbox-group">
+                        <% genres.forEach((genre)=> { %>
+                            <label>
+                                <input type="checkbox" name="genres" value="<%= genre.id %>">
+                                <%= genre.genre %>
+                            </label>
+                            <% }) %>
+                    </div>
+
+                    <div class="new-input-container">
+                        <label for="new_genre">Add a new genre (optional):</label>
+                        <input type="text" name="new_genre" id="new_genre" placeholder="e.g. Roguelike">
+                    </div>
+                </fieldset>
+
+                <fieldset class="devs-fieldset">
+                    <legend>Developers</legend>
+                    <p>Select existing developers:</p>
+                    <div class="checkbox-group">
+                        <% devs.forEach((dev)=> { %>
+                            <label>
+                                <input type="checkbox" name="devs" value="<%= dev.id %>">
+                                <%= dev.name %>
+                            </label>
+                            <% }) %>
+                    </div>
+
+                    <div class="new-input-container">
+                        <label for="new_dev_first">Add a new developer (optional):</label>
+                        <div>
+                            <input type="text" name="new_dev_first" id="new_dev_first" placeholder="First Name">
+                            <input type="text" name="new_dev_last" id="new_dev_last" placeholder="Last Name">
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-secondary">Update</button>
+            </form>
+    </section>
+</body>
+
+</html>

@@ -8,6 +8,9 @@ gameRouter.get('/new', gameController.showNewGameForm);
 gameRouter.post('/new', gameController.postGame);
 gameRouter.get('/delete-genre', gameController.deleteGenre)
 gameRouter.get('/delete-game', gameController.deleteGame)
+gameRouter.get('/update/:gameTitle', gameController.showUpdateGameForm)
+gameRouter.post('/update', gameController.updateGame)
+
 
 
 module.exports = gameRouter;

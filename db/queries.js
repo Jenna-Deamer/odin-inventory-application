@@ -15,6 +15,27 @@ GROUP BY games.id;`);
     return rows;
 };
 
+async function getGameData(game_title) {
+    const { rows } = await pool.query(`
+        SELECT 
+            games.id, 
+            games.title, 
+            games.cover_src,
+            string_agg(DISTINCT concat(developers.first_name, ' ', developers.last_name), ', ') AS devs,
+            string_agg(DISTINCT genres.title, ', ') AS genres
+        FROM games
+        JOIN game_developers ON games.id = game_developers.game_id
+        JOIN developers ON game_developers.developer_id = developers.id
+        JOIN game_genres ON games.id = game_genres.game_id
+        JOIN genres ON game_genres.genre_id = genres.id
+        WHERE games.title = $1
+        GROUP BY games.id;
+    `, [game_title]);
+
+    return rows[0];
+}
+
+
 async function getAllGenres() {
     const { rows } = await pool.query(`SELECT id, title AS genre FROM genres;`)
     return rows;
@@ -53,6 +74,16 @@ async function insertGame(title, img) {
         [title, img]
     );
     return rows[0].id;
+}
+
+async function updateGameById(title, img, id) {
+    const { rows } = await pool.query(
+        `UPDATE games
+         SET title = $1, cover_src = $2
+         WHERE id = $3
+         RETURNING id`, [title, img, id]
+    )
+    return rows[0];
 }
 
 async function insertDeveloper(first_name, last_name) {
@@ -124,6 +155,7 @@ async function deleteGame(game_title) {
 }
 module.exports = {
     getAllGames,
+    getGameData,
     getAllGenres,
     getGamesByGenre,
     getAllDevs,
@@ -134,5 +166,6 @@ module.exports = {
     linkGameDeveloper,
     checkGamesWithGenre,
     deleteGenre,
-    deleteGame
+    deleteGame,
+    updateGameById
 }

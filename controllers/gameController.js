@@ -10,6 +10,9 @@ async function getHomePage(req, res) {
     })
 }
 
+async function getSelectedGame(req, res) {
+    const gameData = await db.getGame();
+}
 async function showNewGameForm(req, res) {
     const genres = await db.getAllGenres();
     const devs = await db.getAllDevs();
@@ -43,11 +46,40 @@ async function postGame(req, res) {
 }
 
 async function showUpdateGameForm(req, res) {
-
+    const { gameTitle } = req.params;
+    const game = await db.getGameData(gameTitle);
+    console.log(game)
+    const genres = await db.getAllGenres();
+    const devs = await db.getAllDevs();
+    res.render('update', {
+        genres,
+        devs,
+        game
+    });
 }
 
 
 async function updateGame(req, res) {
+    const { id, game_title, img_src, genres, new_genre, devs, new_dev_first, new_dev_last } = req.body
+    console.log(req.body)
+    // find game & update
+    const gameId = await db.updateGameById(game_title, img_src, id);
+    // Process genres
+    const genreIds = [].concat(genres || []);
+    if (new_genre !== "") {
+        const newId = await db.insertGenre(new_genre.trim());
+        genreIds.push(newId)
+    }
+    // Process devs
+    const devIds = [].concat(devs || []);
+    if (new_dev_first !== "" && new_dev_last !== "") {
+        const newId = await db.insertDeveloper(new_dev_first.trim(), new_dev_last.trim());
+        devIds.push(newId)
+    }
+    // Link everything up
+    genreIds.map(id => db.linkGameGenre(gameId.id, id));
+    devIds.map(id => db.linkGameDeveloper(gameId.id, id));
+    res.redirect('/')
 
 }
 
@@ -99,5 +131,6 @@ module.exports = {
     updateGame,
     deleteGame,
     showGamesInSelectedGEnre,
-    deleteGenre
+    deleteGenre,
+    getSelectedGame
 }
