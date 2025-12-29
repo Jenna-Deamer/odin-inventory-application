@@ -52,7 +52,10 @@ async function updateGame(req, res) {
 }
 
 async function deleteGame(req, res) {
-
+    const { game_title } = req.query;
+    console.log(game_title)
+    await db.deleteGame(game_title);
+    res.redirect('/');
 }
 
 async function deleteGenre(req, res) {
@@ -62,8 +65,11 @@ async function deleteGenre(req, res) {
 
     if (orphanedGames.length > 0) {
         const games = await db.getGamesByGenre(genreTitle);
-        const errors = [];
-        errors.push(`Error: Cannot delete. ${orphanedGames.length} game(s) would be left without a genre.`)
+        const errors = [
+            {
+                msg: `Error: Cannot delete. ${orphanedGames.length} game(s) would be left without a genre.`
+            }
+        ];
         return res.status(400).render('genre', {
             title: genreTitle,
             games,

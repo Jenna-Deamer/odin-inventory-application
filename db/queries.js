@@ -117,6 +117,11 @@ async function checkGamesWithGenre(genre_title) {
 async function deleteGenre(genre_title) {
     await pool.query(`DELETE FROM genres WHERE title = $1`, [genre_title]);
 }
+
+async function deleteGame(game_title) {
+    await pool.query(`DELETE FROM games WHERE title = $1`, [game_title]);
+
+}
 module.exports = {
     getAllGames,
     getAllGenres,
@@ -128,5 +133,6 @@ module.exports = {
     linkGameGenre,
     linkGameDeveloper,
     checkGamesWithGenre,
-    deleteGenre
+    deleteGenre,
+    deleteGame
 }

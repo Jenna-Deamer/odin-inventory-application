@@ -37,6 +37,13 @@
                             <p class="game-devs"><strong>Developers: </strong>
                                 <%= game.devs %>
                             </p>
+                            <%- include("partials/errors.ejs") %>
+
+                                <form action="/delete-game" method="GET"
+                                    onsubmit="return confirm(`Are you sure you want to delete <%= game.title %>?`)">
+                                    <input type="hidden" name="game_title" value="<%= game.title %>">
+                                    <button type="submit">Delete Game</button>
+                                </form>
                         </div>
 
                     </article>
