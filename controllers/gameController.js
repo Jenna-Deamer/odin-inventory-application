@@ -20,15 +20,26 @@ async function showNewGameForm(req, res) {
 }
 
 async function postGame(req, res) {
-    console.log("--- Form Submission Captured ---");
-    console.log(req.body);
-    console.log("-------------------------------");
     const { game_title, img_src, genres, new_genre, devs, new_dev_first, new_dev_last } = req.body
-    // Insert game
-    await db.insertGame(game_title, img_src);
-    // Handle new devs & genres
+    // Insert game/get game ID
+    const gameId = await db.insertGame(game_title, img_src);
+    // Process genres
+    const genreIds = [].concat(genres || []);
+    if (new_genre !== "") {
+        const newId = await db.insertGenre(new_genre.trim());
+        genreIds.push(newId)
+    }
+    // Process devs
+    const devIds = [].concat(devs || []);
+    if (new_dev_first !== "" && new_dev_last !== "") {
+        const newId = await db.insertDeveloper(new_dev_first.trim(), new_dev_last.trim());
+        devIds.push(newId)
+    }
+    // Link everything up
+    genreIds.map(id => db.linkGameGenre(gameId, id));
+    devIds.map(id => db.linkGameDeveloper(gameId, id));
 
-    // Link bridge tables
+    res.redirect('/');
 }
 
 async function showUpdateGameForm(req, res) {

@@ -11,6 +11,7 @@ JOIN developers ON game_developers.developer_id = developers.id
 JOIN game_genres ON games.id = game_genres.game_id
 JOIN genres ON game_genres.genre_id = genres.id
 GROUP BY games.id;`);
+    console.log(rows)
     return rows;
 };
 
@@ -44,9 +45,55 @@ async function getGamesByGenre(selectedGenre) {
     return rows;
 }
 async function insertGame(title, img) {
-    await pool.query(
-        "INSERT INTO games (title, cover_src) VALUES ($1, $2)",
+    const { rows } = await pool.query(
+        `INSERT INTO games (title, cover_src) 
+         VALUES ($1, $2) 
+         ON CONFLICT (title) DO UPDATE SET title=EXCLUDED.title 
+         RETURNING id`,
         [title, img]
+    );
+    return rows[0].id;
+}
+
+async function insertDeveloper(first_name, last_name) {
+    const { rows } = await pool.query(
+        `INSERT INTO developers (first_name, last_name) 
+         VALUES ($1, $2) 
+         ON CONFLICT (first_name, last_name) 
+         DO UPDATE SET first_name = EXCLUDED.first_name 
+         RETURNING id`,
+        [first_name, last_name]
+    );
+    return rows[0].id;
+}
+
+async function insertGenre(genre_title) {
+    const { rows } = await pool.query(
+        `INSERT INTO genres (title) 
+         VALUES ($1) 
+         ON CONFLICT (title) 
+         DO UPDATE SET title = EXCLUDED.title
+         RETURNING id`,
+        [genre_title]
+    );
+    return rows[0].id;
+}
+
+async function linkGameGenre(gameId, genreId) {
+    await pool.query(
+        `INSERT INTO game_genres (game_id, genre_id) 
+         VALUES ($1, $2) 
+         ON CONFLICT DO NOTHING`,
+        [gameId, genreId]
+    );
+}
+
+async function linkGameDeveloper(gameId, devId) {
+    await pool.query(
+        `INSERT INTO game_developers (game_id, developer_id) 
+         VALUES ($1, $2) 
+         ON CONFLICT DO NOTHING`,
+        [gameId, devId]
     );
 }
 
@@ -55,5 +102,9 @@ module.exports = {
     getAllGenres,
     getGamesByGenre,
     getAllDevs,
-    insertGame
+    insertGame,
+    insertDeveloper,
+    insertGenre,
+    linkGameGenre,
+    linkGameDeveloper
 }
